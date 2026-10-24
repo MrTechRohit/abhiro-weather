@@ -8,7 +8,7 @@ The application incorporates a secure **PHP API Reverse Proxy** to keep third-pa
 
 ## 📸 Preview & Interface
 
-![Abhiro Weather Forecast UI](screenshot.png)
+![Abhiro Weather Forecast UI](screenshot.PNG)
 
 > **Note:** To render your preview image on GitHub, capture a full-window screenshot of your application and save it directly in your root repository folder as `screenshot.png`.
 
