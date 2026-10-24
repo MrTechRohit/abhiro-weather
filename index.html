@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhiro Weather Forecast — Professional Meteorological Hub</title>
+    <title>Abhiro Weather Forecast — Smart Environmental Intelligence</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="theme-default">
 
-    <!-- Dynamic Ambient Background Blobs -->
+    <!-- Ambient Animated Blobs -->
     <div class="background-blobs">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -21,7 +20,7 @@
 
     <div class="app-container">
         
-        <!-- Header with Branding, Search, Voice, and Controls -->
+        <!-- Header -->
         <header class="app-header">
             <div class="brand-container">
                 <div class="logo-wrapper">
@@ -42,8 +41,7 @@
                         autocomplete="off" 
                         required
                     >
-                    <!-- Voice Search Button -->
-                    <button type="button" id="voiceSearchBtn" class="icon-action-btn" title="Voice Search (Speak city name)">🎙️</button>
+                    <button type="button" id="voiceSearchBtn" class="icon-action-btn" title="Voice Search">🎙️</button>
                     <button type="submit" class="icon-action-btn" aria-label="Search">🔍</button>
                 </form>
 
@@ -51,7 +49,6 @@
                     <span class="gps-icon">📍</span> Current Location
                 </button>
 
-                <!-- Metric Unit Toggle (°C / °F) -->
                 <div class="unit-toggle" title="Switch units">
                     <button id="unitCelsius" class="unit-btn active">°C</button>
                     <button id="unitFahrenheit" class="unit-btn">°F</button>
@@ -59,26 +56,26 @@
             </div>
         </header>
 
-        <!-- Recent Searches & Favorites Bar -->
+        <!-- Saved & Recent Searches Chips -->
         <div class="recent-bar-container">
             <span class="recent-label">Saved & Recent:</span>
             <div id="recentSearches" class="recent-chips"></div>
         </div>
 
-        <!-- Weather Emergency Alert Banner -->
+        <!-- Weather Alerts -->
         <div id="weatherAlert" class="alert-banner hidden">
             <span class="alert-icon">⚠️</span>
-            <div class="alert-content" id="alertMessage">High wind alert in effect.</div>
+            <div class="alert-content" id="alertMessage">Atmospheric warning in effect.</div>
         </div>
 
-        <!-- Dynamic Status & Spinner -->
+        <!-- Status & Loader -->
         <div id="statusBanner" class="status-banner hidden"></div>
         <div id="loader" class="loader-container hidden">
             <div class="spinner"></div>
             <p id="loaderText">Fetching local weather...</p>
         </div>
 
-        <!-- Main Hero Weather Display -->
+        <!-- Main Weather Display Card -->
         <main id="mainWeather" class="main-weather-card">
             <div class="weather-primary">
                 <div class="location-info">
@@ -97,13 +94,13 @@
                 </div>
             </div>
 
-            <!-- Smart Lifestyle & Advisory Tip Box -->
+            <!-- Smart Lifestyle Tip -->
             <div class="lifestyle-tip-box" id="lifestyleTipBox">
                 <span class="tip-icon">💡</span>
                 <p id="lifestyleTip">Weather looks pleasant. Enjoy your day outside!</p>
             </div>
 
-            <!-- Meteorological Details Bar (8 Metrics) -->
+            <!-- Metrics -->
             <div class="metrics-bar">
                 <div class="metric">
                     <span class="metric-label">Feels Like</span>
@@ -140,7 +137,7 @@
             </div>
         </main>
 
-        <!-- 5-Day Extended Weather Forecast -->
+        <!-- 5-Day Forecast -->
         <section class="forecast-section">
             <div class="section-title">
                 <h3>📅 5-Day Extended Forecast</h3>
@@ -149,7 +146,7 @@
             <div class="forecast-grid" id="forecastGrid"></div>
         </section>
 
-        <!-- Dynamic Nearby Regional Radar (3 Cities) -->
+        <!-- Dynamic Nearby Radar -->
         <section class="nearby-section">
             <div class="section-title">
                 <h3>📍 Nearby Cities Radar</h3>

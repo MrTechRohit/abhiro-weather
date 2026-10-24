@@ -1,7 +1,7 @@
 // ==============================================================
-// 1. CONFIGURATION
+// 1. CONFIGURATION (NO API KEY EXPOSED)
 // ==============================================================
-const API_KEY = 'acc0ed2a261226588640eacefba06a89'; 
+const BACKEND_URL = 'api.php';
 
 let currentUnit = 'metric';
 let currentCoords = null;
@@ -20,7 +20,7 @@ const alertMessage = document.getElementById('alertMessage');
 const loader = document.getElementById('loader');
 const loaderText = document.getElementById('loaderText');
 
-// Main Card Elements
+// Main Display Elements
 const mainCityName = document.getElementById('mainCityName');
 const mainDate = document.getElementById('mainDate');
 const mainCondition = document.getElementById('mainCondition');
@@ -30,7 +30,7 @@ const mainTempUnit = document.getElementById('mainTempUnit');
 const mainIcon = document.getElementById('mainIcon');
 const lifestyleTip = document.getElementById('lifestyleTip');
 
-// Metrics Elements
+// Detail Metrics
 const mainFeelsLike = document.getElementById('mainFeelsLike');
 const mainHumidity = document.getElementById('mainHumidity');
 const mainWind = document.getElementById('mainWind');
@@ -50,7 +50,7 @@ const nearbyGrid = document.getElementById('nearbyGrid');
 window.addEventListener('DOMContentLoaded', () => {
     renderRecentSearches();
 
-    // Default city loads immediately so dashboard is populated
+    // Default load so dashboard is immediately populated
     fetchByCityName('Delhi');
 
     // Attempt GPS detection in background
@@ -61,10 +61,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 currentCoords = { lat: latitude, lon: longitude };
                 loadByCoords(latitude, longitude);
             },
-            () => {
-                console.log('GPS not granted or unavailable; using fallback city.');
-            },
-            { timeout: 7000 }
+            () => console.log('Using default city fallback: GPS denied/unavailable.')
         );
     }
 });
@@ -111,7 +108,7 @@ if (voiceSearchBtn) {
     voiceSearchBtn.addEventListener('click', () => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
-            showError("Voice recognition is not supported in this browser.");
+            showError("Voice recognition not supported in this browser.");
             return;
         }
 
@@ -138,7 +135,7 @@ if (voiceSearchBtn) {
 }
 
 // ==============================================================
-// 3. CORE FETCH FUNCTIONS
+// 3. SECURE FETCH THROUGH BACKEND PROXY (api.php)
 // ==============================================================
 
 function fetchCurrentLocation() {
@@ -167,8 +164,8 @@ function fetchCurrentLocation() {
 async function fetchByCityName(city) {
     showLoader(`Fetching weather for "${city}"...`);
     try {
-        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=${currentUnit}&appid=${API_KEY}`;
-        const data = await fetchJson(weatherUrl);
+        const url = `${BACKEND_URL}?action=weather&city=${encodeURIComponent(city)}&unit=${currentUnit}`;
+        const data = await fetchJson(url);
 
         currentCoords = { lat: data.coord.lat, lon: data.coord.lon };
         saveToRecentSearches(data.name);
@@ -186,8 +183,8 @@ async function fetchByCityName(city) {
 async function loadByCoords(lat, lon) {
     showLoader("Updating weather...");
     try {
-        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${currentUnit}&appid=${API_KEY}`;
-        const data = await fetchJson(weatherUrl);
+        const url = `${BACKEND_URL}?action=weather&lat=${lat}&lon=${lon}&unit=${currentUnit}`;
+        const data = await fetchJson(url);
 
         saveToRecentSearches(data.name);
         renderMainWeather(data);
@@ -212,9 +209,9 @@ async function loadSecondaryData(lat, lon, cityName, mainData) {
     applyDynamicTheme(mainData);
     checkWeatherAlerts(mainData);
 
-    // 1. Air Quality Index (AQI)
+    // 1. AQI through proxy
     try {
-        const aqiRes = await fetchJson(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
+        const aqiRes = await fetchJson(`${BACKEND_URL}?action=aqi&lat=${lat}&lon=${lon}`);
         renderAqi(aqiRes);
         generateLifestyleAdvice(mainData, aqiRes);
     } catch (e) {
@@ -222,15 +219,15 @@ async function loadSecondaryData(lat, lon, cityName, mainData) {
         generateLifestyleAdvice(mainData, null);
     }
 
-    // 2. 5-Day Extended Forecast
+    // 2. 5-Day Forecast through proxy
     try {
-        const forecastRes = await fetchJson(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${currentUnit}&appid=${API_KEY}`);
+        const forecastRes = await fetchJson(`${BACKEND_URL}?action=forecast&lat=${lat}&lon=${lon}&unit=${currentUnit}`);
         renderForecast(forecastRes);
     } catch (e) {
         console.warn("Forecast data unavailable:", e);
     }
 
-    // 3. Dynamic Nearby Cities
+    // 3. Dynamic Nearby Radar
     findDynamicNearbyCities(lat, lon, cityName);
 }
 
@@ -348,9 +345,8 @@ async function findDynamicNearbyCities(centerLat, centerLon, originCityName) {
 
     for (const pt of radialPoints) {
         try {
-            const cityData = await fetchJson(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${pt.lat}&lon=${pt.lon}&units=${currentUnit}&appid=${API_KEY}`
-            );
+            const url = `${BACKEND_URL}?action=weather&lat=${pt.lat}&lon=${pt.lon}&unit=${currentUnit}`;
+            const cityData = await fetchJson(url);
             const cityNameLower = (cityData.name || '').toLowerCase().trim();
 
             if (cityNameLower && !seenNames.has(cityNameLower)) {
@@ -358,7 +354,7 @@ async function findDynamicNearbyCities(centerLat, centerLon, originCityName) {
                 resolvedCities.push(cityData);
             }
         } catch (e) {
-            // Keep going if one point fails
+            // Keep going if a single radial point fails
         }
     }
 
@@ -408,7 +404,7 @@ function generateLifestyleAdvice(data, aqiData) {
     let tip = "Weather conditions look comfortable. Enjoy your day outside!";
 
     if (mainCondition.includes('rain') || mainCondition.includes('drizzle')) {
-        tip = "Precipitation expected today. Don't forget an umbrella!";
+        tip = "Precipitation expected today. Remember to carry an umbrella!";
     } else if (mainCondition.includes('thunderstorm')) {
         tip = "Thunderstorms active in the area. Stay indoors.";
     } else if (tempC > 34) {
@@ -492,9 +488,9 @@ function formatSunTime(timestamp, timezoneOffsetSeconds = 0) {
 async function fetchJson(url) {
     const res = await fetch(url);
     if (!res.ok) {
-        if (res.status === 401) throw new Error("Invalid or unactivated API key.");
-        if (res.status === 404) throw new Error("Location not found.");
-        throw new Error(`API Error: ${res.statusText}`);
+        const errJson = await res.json().catch(() => null);
+        const errMsg = errJson?.message || errJson?.error || `Error ${res.status}`;
+        throw new Error(errMsg);
     }
     return res.json();
 }

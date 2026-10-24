@@ -5,7 +5,6 @@
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.78);
     --accent-color: #38ef7d;
-    --accent-blue: #00d2ff;
     --danger-color: #ff4757;
     --warning-color: #ffa502;
 }
@@ -30,14 +29,13 @@ body {
     transition: background 0.8s ease;
 }
 
-/* Dynamic Weather Theme Classes */
+/* Atmospheric Conditions Dynamic Backdrops */
 body.theme-clear { background: linear-gradient(135deg, #1b3a4b, #006466); }
 body.theme-clouds { background: linear-gradient(135deg, #1f2421, #38403e); }
 body.theme-rain { background: linear-gradient(135deg, #0f1c2e, #1f3160); }
 body.theme-snow { background: linear-gradient(135deg, #2b2d42, #4a4e69); }
 body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000); }
 
-/* Background Glowing Elements */
 .background-blobs {
     position: fixed;
     top: 0;
@@ -53,14 +51,12 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     border-radius: 50%;
     filter: blur(110px);
     opacity: 0.45;
-    transition: all 1s ease;
 }
 
 .blob-1 { width: 450px; height: 450px; background: #1e528e; top: -100px; left: -100px; }
 .blob-2 { width: 550px; height: 550px; background: #7028e4; bottom: -150px; right: -100px; }
 .blob-3 { width: 320px; height: 320px; background: #00b4d8; top: 40%; left: 45%; }
 
-/* App Container */
 .app-container {
     width: 100%;
     max-width: 960px;
@@ -69,7 +65,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     gap: 22px;
 }
 
-/* Header & Brand */
 .app-header {
     display: flex;
     justify-content: space-between;
@@ -170,7 +165,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     transform: translateY(-2px);
 }
 
-/* Metric Switcher */
 .unit-toggle {
     display: flex;
     background: var(--glass-bg);
@@ -196,7 +190,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     color: #0b1325;
 }
 
-/* Recent Searches Chips */
 .recent-bar-container {
     display: flex;
     align-items: center;
@@ -234,7 +227,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     border-color: var(--accent-color);
 }
 
-/* Alert Banner */
 .alert-banner {
     display: flex;
     align-items: center;
@@ -252,8 +244,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     border-color: var(--warning-color);
 }
 
-.alert-icon { font-size: 1.2rem; }
-
 .status-banner {
     padding: 12px 18px;
     border-radius: 12px;
@@ -265,7 +255,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
 
 .hidden { display: none !important; }
 
-/* Loader */
 .loader-container {
     display: flex;
     flex-direction: column;
@@ -285,7 +274,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Main Weather Card */
 .main-weather-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -306,16 +294,8 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     gap: 20px;
 }
 
-.location-info h2 {
-    font-size: 2.3rem;
-    font-weight: 800;
-}
-
-.location-info p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-top: 4px;
-}
+.location-info h2 { font-size: 2.3rem; font-weight: 800; }
+.location-info p { color: var(--text-secondary); font-size: 0.95rem; margin-top: 4px; }
 
 .condition-row {
     display: flex;
@@ -371,7 +351,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     color: var(--text-secondary);
 }
 
-/* Smart Recommendation Box */
 .lifestyle-tip-box {
     display: flex;
     align-items: center;
@@ -384,9 +363,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     color: #f1f2f6;
 }
 
-.tip-icon { font-size: 1.3rem; }
-
-/* Metrics Grid (8 Tiles) */
 .metrics-bar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -416,7 +392,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     font-weight: 700;
 }
 
-/* 5-Day Forecast Grid */
 .forecast-section, .nearby-section {
     display: flex;
     flex-direction: column;
@@ -452,7 +427,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
 .forecast-card .forecast-temp { font-size: 1.2rem; font-weight: 700; }
 .forecast-card .forecast-desc { font-size: 0.78rem; color: var(--text-secondary); text-transform: capitalize; }
 
-/* Nearby Grid */
 .nearby-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -482,7 +456,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
 .nearby-card p { font-size: 0.8rem; color: var(--text-secondary); text-transform: capitalize; }
 .nearby-temp { font-size: 1.5rem; font-weight: 700; }
 
-/* Footer */
 .app-footer {
     margin-top: 10px;
     padding: 22px;
@@ -511,7 +484,6 @@ body.theme-thunderstorm { background: linear-gradient(135deg, #130f40, #000000);
     border-bottom-color: #ffffff;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 650px) {
     .app-header { flex-direction: column; align-items: stretch; }
     .brand-container { justify-content: center; text-align: center; }
