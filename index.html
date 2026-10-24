@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhiro Weather Forecast</title>
+    <title>Abhiro Weather Forecast — Professional Meteorological Hub</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="theme-default">
 
-    <!-- Ambient Animated Background -->
+    <!-- Dynamic Ambient Background Blobs -->
     <div class="background-blobs">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -20,16 +21,15 @@
 
     <div class="app-container">
         
-        <!-- Header with Custom Logo and Branding -->
+        <!-- Header with Branding, Search, Voice, and Controls -->
         <header class="app-header">
             <div class="brand-container">
                 <div class="logo-wrapper">
-                    <!-- Local logo file -->
                     <img src="logo.png" alt="Abhiro Weather Logo" class="brand-logo" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/1163/1163624.png';">
                 </div>
                 <div class="brand-titles">
                     <h1>Abhiro Weather Forecast</h1>
-                    <span class="brand-subtitle">Weather & Live Atmospheric Radar</span>
+                    <span class="brand-subtitle">Smart Environmental & Atmospheric Intelligence</span>
                 </div>
             </div>
 
@@ -42,43 +42,72 @@
                         autocomplete="off" 
                         required
                     >
-                    <button type="submit" aria-label="Search">🔍</button>
+                    <!-- Voice Search Button -->
+                    <button type="button" id="voiceSearchBtn" class="icon-action-btn" title="Voice Search (Speak city name)">🎙️</button>
+                    <button type="submit" class="icon-action-btn" aria-label="Search">🔍</button>
                 </form>
 
                 <button id="locationBtn" class="location-btn" title="Detect Current GPS Location">
                     <span class="gps-icon">📍</span> Current Location
                 </button>
+
+                <!-- Metric Unit Toggle (°C / °F) -->
+                <div class="unit-toggle" title="Switch units">
+                    <button id="unitCelsius" class="unit-btn active">°C</button>
+                    <button id="unitFahrenheit" class="unit-btn">°F</button>
+                </div>
             </div>
         </header>
 
-        <!-- Dynamic Feedback & Loading States -->
+        <!-- Recent Searches & Favorites Bar -->
+        <div class="recent-bar-container">
+            <span class="recent-label">Saved & Recent:</span>
+            <div id="recentSearches" class="recent-chips"></div>
+        </div>
+
+        <!-- Weather Emergency Alert Banner -->
+        <div id="weatherAlert" class="alert-banner hidden">
+            <span class="alert-icon">⚠️</span>
+            <div class="alert-content" id="alertMessage">High wind alert in effect.</div>
+        </div>
+
+        <!-- Dynamic Status & Spinner -->
         <div id="statusBanner" class="status-banner hidden"></div>
         <div id="loader" class="loader-container hidden">
             <div class="spinner"></div>
             <p id="loaderText">Fetching local weather...</p>
         </div>
 
-        <!-- Primary Hero Card -->
+        <!-- Main Hero Weather Display -->
         <main id="mainWeather" class="main-weather-card">
             <div class="weather-primary">
                 <div class="location-info">
                     <h2 id="mainCityName">---</h2>
                     <p id="mainDate">Select a city or use your location</p>
-                    <span id="mainCondition" class="condition-badge">---</span>
+                    <div class="condition-row">
+                        <span id="mainCondition" class="condition-badge">---</span>
+                        <span id="aqiBadge" class="aqi-badge">AQI: --</span>
+                    </div>
                 </div>
                 <div class="temp-wrapper">
                     <img id="mainIcon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="weather condition">
                     <div class="temp-readout">
-                        <span id="mainTemp">--</span><span class="degree">°C</span>
+                        <span id="mainTemp">--</span><span class="degree" id="mainTempUnit">°C</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Meteorological Details Bar -->
+            <!-- Smart Lifestyle & Advisory Tip Box -->
+            <div class="lifestyle-tip-box" id="lifestyleTipBox">
+                <span class="tip-icon">💡</span>
+                <p id="lifestyleTip">Weather looks pleasant. Enjoy your day outside!</p>
+            </div>
+
+            <!-- Meteorological Details Bar (8 Metrics) -->
             <div class="metrics-bar">
                 <div class="metric">
                     <span class="metric-label">Feels Like</span>
-                    <span class="metric-value" id="mainFeelsLike">--°C</span>
+                    <span class="metric-value" id="mainFeelsLike">--</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label">Humidity</span>
@@ -86,30 +115,55 @@
                 </div>
                 <div class="metric">
                     <span class="metric-label">Wind Speed</span>
-                    <span class="metric-value" id="mainWind">-- m/s</span>
+                    <span class="metric-value" id="mainWind">--</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label">Pressure</span>
                     <span class="metric-value" id="mainPressure">-- hPa</span>
                 </div>
+                <div class="metric">
+                    <span class="metric-label">Sunrise</span>
+                    <span class="metric-value" id="mainSunrise">--:-- AM</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Sunset</span>
+                    <span class="metric-value" id="mainSunset">--:-- PM</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Visibility</span>
+                    <span class="metric-value" id="mainVisibility">-- km</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Air Health</span>
+                    <span class="metric-value" id="mainAqiStatus">--</span>
+                </div>
             </div>
         </main>
 
-        <!-- Dynamic Nearby Cities Section -->
+        <!-- 5-Day Extended Weather Forecast -->
+        <section class="forecast-section">
+            <div class="section-title">
+                <h3>📅 5-Day Extended Forecast</h3>
+                <span class="subtitle">Midday projected trends</span>
+            </div>
+            <div class="forecast-grid" id="forecastGrid"></div>
+        </section>
+
+        <!-- Dynamic Nearby Regional Radar (3 Cities) -->
         <section class="nearby-section">
             <div class="section-title">
-                <h3>📍 Nearby Cities</h3>
-                <span class="subtitle">Real-time glance around this region</span>
+                <h3>📍 Nearby Cities Radar</h3>
+                <span class="subtitle">Auto-triangulated cities around selected location</span>
             </div>
             <div class="nearby-grid" id="nearbyGrid"></div>
         </section>
 
-        <!-- Footer with Copyright & Portfolio Link -->
+        <!-- Footer -->
         <footer class="app-footer">
             <p>© 2026 Abhiro Weather Forecast. All Rights Reserved.</p>
             <p class="creator-tag">
                 Designed & Developed by 
-                <a href="https://er-rohit.freedev.app" target="_blank" rel="noopener noreferrer" class="portfolio-link">
+                <a href="https://er-rohit.freedev.app/" target="_blank" rel="noopener noreferrer" class="portfolio-link">
                     Mr. Rohit
                 </a>
             </p>
