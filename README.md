@@ -16,7 +16,7 @@ The application features a secure **PHP API Reverse Proxy** to keep third-party 
 
 ## 🌐 Live URL & Demo
 
-* **Live Demo Deployment:** [https://mrtechrohit.github.io/live-weather/](https://mrtechrohit.github.io/live-weather/)
+* **Live Demo Deployment:**[ [https://mrtechrohit.github.io/live-weather/](https://mrtechrohit.github.io/live-weather/)](https://abhiro-weather.wuaze.com/)
 * *(Note: To test the secure PHP proxy and file logging features, deploy on a PHP-supported environment like Apache/XAMPP, Render, or InfinityFree).*
 
 ---
