@@ -1,31 +1,31 @@
 # ☁️ Abhiro Weather Forecast
 
-A full-stack, responsive meteorological Single Page Application (SPA) designed to deliver real-time atmospheric telemetry, dynamic air quality indices, 5-day forecasting trends, and regional neighborhood radar triangulation.
+A full-stack, responsive meteorological Single Page Application (SPA) designed to deliver real-time atmospheric telemetry, dynamic air quality indices (AQI), 5-day forecasting trends, and regional neighborhood radar triangulation.
 
-The application features a secure **PHP API Reverse Proxy** to keep third-party credentials hidden from client-side inspection, paired with lightweight server-side flat-file search activity logging.
+The application incorporates a secure **PHP API Reverse Proxy** to keep third-party credentials isolated from client-side inspection, paired with server-side flat-file search activity logging.
 
 ---
 
-## 📸 Preview & Screenshots
+## 📸 Preview & Interface
 
 ![Abhiro Weather Forecast UI](screenshot.png)
 
-> **Note:** To display your screenshot, capture your application window and save the image as `screenshot.png` directly in this root repository folder.
+> **Note:** To render your preview image on GitHub, capture a full-window screenshot of your application and save it directly in your root repository folder as `screenshot.png`.
 
 ---
 
-## 🌐 Live URL & Demo
+## 🌐 Live URL & Repository
 
-* **Live Demo Deployment:**(https://github.com/MrTechRohit/abhiro-weather)(https://abhiro-weather.wuaze.com/)
-* *(Note: To test the secure PHP proxy and file logging features, deploy on a PHP-supported environment like Apache/XAMPP, Render, or InfinityFree).*
+* **Live Deployment:** [https://abhiro-weather.wuaze.com/](https://abhiro-weather.wuaze.com/)
+* **GitHub Repository:** [https://github.com/MrTechRohit/abhiro-weather](https://github.com/MrTechRohit/abhiro-weather)
 
 ---
 
 ## ✨ Key Features
 
-* **Server-Side API Key Shielding:** OpenWeatherMap API credentials stay isolated on the server within `api.php`. No keys are exposed in client-side code, network requests, or source inspect tools.
-* **Lightweight Flat-File Logging:** Queries, timestamps, client IPs, weather conditions, and temperatures are logged directly to `searches.txt` without needing external database drivers.
-* **Real-Time Meteorological Metrics:** Live temperature, "feels like" index, humidity, wind velocity, atmospheric pressure, and visibility.
+* **Server-Side API Key Shielding:** OpenWeatherMap API credentials stay isolated on the server within `api.php`. No keys are exposed in client-side code, network inspect tabs, or repository files.
+* **Lightweight Flat-File Logging:** User queries, timestamps, client IPs, weather conditions, and temperatures are logged directly to `searches.txt` without requiring an external database driver.
+* **Real-Time Meteorological Metrics:** Live temperature, "feels like" reading, humidity, wind velocity, atmospheric pressure, and visibility.
 * **Air Quality Index (AQI):** Telemetry tracking with health impact classifications (Healthy, Fair, Moderate, Unhealthy, Hazardous).
 * **5-Day Extended Forecast:** Midday atmospheric projections and temperature trend graphs.
 * **Dynamic Neighboring Radar:** Triangulates radial GPS coordinates around any searched city to query and display 3 neighboring towns.
@@ -40,19 +40,20 @@ The application features a secure **PHP API Reverse Proxy** to keep third-party 
 
 * **Frontend:** HTML5, CSS3 (Glassmorphism, Flexbox, CSS Grid), Vanilla JavaScript (ES6+, Fetch API, Web Speech API)
 * **Backend:** PHP 8+ (cURL HTTP client, JSON payload encoding, secure stream handling)
-* **Storage:** Flat text file (`searches.txt` with file-locking `LOCK_EX`)
+* **Storage:** Flat text file (`searches.txt` with `LOCK_EX` concurrency control)
 * **Weather Data Source:** [OpenWeatherMap API](https://openweathermap.org/) (Current Weather, Air Pollution, 5-Day Forecast)
+* **Hosting Platform:** Custom Apache/PHP Web Server ([wuaze.com](https://abhiro-weather.wuaze.com/))
 
 ---
 
 ## 🚀 Local Installation & Setup
 
 ### 1. Prerequisites
-* [XAMPP](https://www.apachefriends.org/) (with Apache running)
+* [XAMPP](https://www.apachefriends.org/) (Apache server module enabled)
 * Git installed
 
 ### 2. Clone the Repository
 Clone the repository directly into your local XAMPP web root:
 ```bash
 cd C:/xampp/htdocs
-git clone [https://github.com/MrTechRohit/live-weather.git](https://github.com/MrTechRohit/live-weather.git) weather
+git clone [https://github.com/MrTechRohit/abhiro-weather.git](https://github.com/MrTechRohit/abhiro-weather.git) weather
