@@ -6,7 +6,7 @@ header("Access-Control-Allow-Origin: *");
 // ==========================================
 // 1. CONFIGURATION: PRIVATE API KEY
 // ==========================================
-$API_KEY = "acc0ed2a261226588640eacefba06a89"; // Put your 32-char key here (Never exposed to client)
+$API_KEY = "YOUR_API_KEY_HERE"; // Put your 32-char key here (Never exposed to client)
 $LOG_FILE = __DIR__ . "/searches.txt";
 
 $action = isset($_GET['action']) ? trim($_GET['action']) : '';
